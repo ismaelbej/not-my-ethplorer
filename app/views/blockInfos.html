@@ -22,7 +22,7 @@
             </tr>
             <tr>
                 <td>Block Number</td>
-                <td><a class="btn btn-primary btn-sm" href="./#/block/{{blockNumber-1}}">&lt; Prev</a>&nbsp;<a href="./#/block/{{blockNumber}}">{{number}}</a>&nbsp;<a class="btn btn-primary btn-sm" href="./#/block/{{blockNumber+1}}">Next &gt;</a></td>
+		<td><span ng-if="notFirstBlock"><a class="btn btn-primary btn-sm" href="./#/block/{{blockNumber-1}}">&lt; Prev</a>&nbsp;</span><a href="./#/block/{{blockNumber}}">{{number}}</a><span ng-if="notLastBlock">&nbsp;<a class="btn btn-primary btn-sm" href="./#/block/{{blockNumber+1}}">Next &gt;</a></span></td>
             </tr>
             <tr>
                 <td>Received Time</td>
@@ -88,6 +88,10 @@
           <tr>
               <td>To</td>
               <td><a href="./#/address/{{tx.to}}">{{tx.to}}</a></td>
+          </tr>
+          <tr>
+              <td>Contract Address</td>
+              <td><a href="./#/address/{{tx.contractAddress}}">{{tx.contractAddress}}</a></td>
           </tr>
           <tr>
               <td>Gas</td>

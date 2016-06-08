@@ -41,11 +41,17 @@ angular.module('ethExplorer')
                     $scope.extraData = result.extraData.slice(2);
                     $scope.dataFromHex = hex2a(result.extraData.slice(2));
                     $scope.size = result.size;
-                    if($scope.blockNumber!==undefined){
+		    $scope.notFirstBlock = true;
+		    $scope.notLastBlock = true;
+                    if ($scope.blockNumber!==undefined){
                         $scope.conf = number - $scope.blockNumber + " Confirmations";
-                        if($scope.conf===0 + " Confirmations"){
-                            $scope.conf='Unconfirmed';
+                        if (number === $scope.blockNumber){
+                            $scope.conf = 'Unconfirmed';
+			    $scope.notLastBlock = false;
                         }
+			if ($scope.blockNumber === 0) {
+			    $scope.notFirstBlock = false;
+			}
                     }
                     if($scope.blockNumber!==undefined){
                         var info = web3.eth.getBlock($scope.blockNumber);
@@ -94,19 +100,22 @@ angular.module('ethExplorer')
 
           for (var blockIdx = 0; blockIdx < txCount; blockIdx++) {
             web3.eth.getTransactionFromBlock($scope.blockId, blockIdx, function(error, result) {
-
-              var transaction = {
-                id: result.hash,
-                hash: result.hash,
-                from: result.from,
-                to: result.to,
-                gas: result.gas,
-                input: result.input.slice(2),
-                value: result.value
-              }
-              $scope.$apply(
-                $scope.transactions.push(transaction)
-              )
+	      // console.log("Result: ", result);
+	      web3.eth.getTransactionReceipt(result.hash, function(error, receipt) {
+                var transaction = {
+                  id: receipt.transactionHash,
+                  hash: receipt.transactionHash,
+                  from: receipt.from,
+                  to: receipt.to,
+                  gas: receipt.gasUsed,
+                  input: result.input.slice(2),
+                  value: result.value,
+                  contractAddress: receipt.contractAddress
+                }
+                $scope.$apply(
+                  $scope.transactions.push(transaction)
+                )
+	      });
             })
           }
         })

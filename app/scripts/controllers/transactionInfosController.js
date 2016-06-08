@@ -33,14 +33,14 @@ angular.module('ethExplorer')
                     }
                     $scope.from = result.from;
                     $scope.gas = result.gas;
-                    $scope.gasPrice = result.gasPrice.c[0] + " WEI";
+                    $scope.gasPrice = web3.fromWei(result.gasPrice, "ether") + " ETH";
                     $scope.hash = result.hash;
                     $scope.input = result.input; // that's a string
                     $scope.nonce = result.nonce;
                     $scope.to = result.to;
                     $scope.transactionIndex = result.transactionIndex;
-                    $scope.ethValue = result.value.c[0] / 10000; 
-                    $scope.txprice = (result.gas * result.gasPrice)/1000000000000000000 + " ETH";
+                    $scope.ethValue = web3.fromWei(result.value, "ether");
+                    $scope.txprice = web3.fromWei(result.gas * result.gasPrice, "ether") + " ETH";
                     if($scope.blockNumber!==undefined){
                         $scope.conf = number - $scope.blockNumber;
                         if($scope.conf===0){
@@ -51,7 +51,7 @@ angular.module('ethExplorer')
                     if($scope.blockNumber!==undefined){
                         var info = web3.eth.getBlock($scope.blockNumber);
                         if(info!==undefined){
-                            $scope.time = info.timestamp;
+                            $scope.time = new Date(info.timestamp * 1000).toUTCString();
                         }
                     }
 

@@ -37,9 +37,9 @@ angular.module('ethExplorer')
                     $scope.number = result.number;
                     $scope.parentHash = result.parentHash;
                     $scope.blockNumber = result.number;
-                    $scope.timestamp = result.timestamp;
-                    $scope.extraData = result.extraData;
-                    $scope.dataFromHex = hex2a(result.extraData);
+                    $scope.timestamp = new Date(result.timestamp * 1000).toUTCString();
+                    $scope.extraData = result.extraData.slice(2);
+                    $scope.dataFromHex = hex2a(result.extraData.slice(2));
                     $scope.size = result.size;
                     if($scope.blockNumber!==undefined){
                         $scope.conf = number - $scope.blockNumber + " Confirmations";
@@ -51,7 +51,7 @@ angular.module('ethExplorer')
                         var info = web3.eth.getBlock($scope.blockNumber);
                         if(info!==undefined){
                             var newDate = new Date();
-                            newDate.setTime(info.timestamp*1000);
+                            newDate.setTime(info.timestamp * 1000);
                             $scope.time = newDate.toUTCString();
                         }
                     }
@@ -101,7 +101,7 @@ angular.module('ethExplorer')
                 from: result.from,
                 to: result.to,
                 gas: result.gas,
-                input: result.input,
+                input: result.input.slice(2),
                 value: result.value
               }
               $scope.$apply(

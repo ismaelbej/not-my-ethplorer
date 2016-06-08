@@ -1,6 +1,6 @@
 <div class="container" style="padding-top: 50px;">
 
-    <h1>Block
+    <h1>Block {{blockNumber}}
         <small>View information about an Ethereum Block</small>
     </h1>
 
@@ -22,7 +22,7 @@
             </tr>
             <tr>
                 <td>Block Number</td>
-                <td><a href="./#/block/{{blockNumber}}">{{number}}</a></td>
+                <td><a class="btn btn-primary btn-sm" href="./#/block/{{blockNumber-1}}">&lt; Prev</a>&nbsp;<a href="./#/block/{{blockNumber}}">{{number}}</a>&nbsp;<a class="btn btn-primary btn-sm" href="./#/block/{{blockNumber+1}}">Next &gt;</a></td>
             </tr>
             <tr>
                 <td>Received Time</td>
@@ -91,15 +91,15 @@
           </tr>
           <tr>
               <td>Gas</td>
-              <td>{{tx.gas}}</a></td>
+              <td>{{tx.gas}}</td>
           </tr>
           <tr>
               <td>Input</td>
-              <td>{{tx.input}}</a></td>
+              <td><textarea>{{tx.input}}</textarea></td>
           </tr>
           <tr>
               <td>Value</td>
-              <td>{{tx.value}}</a></td>
+              <td>{{tx.value}}</td>
           </tr>
           </tbody>
       </table>

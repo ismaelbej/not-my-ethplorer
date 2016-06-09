@@ -22,7 +22,7 @@
             </tr>
             <tr>
                 <td>Block Number</td>
-		<td><span ng-if="notFirstBlock"><a class="btn btn-primary btn-sm" href="./#/block/{{blockNumber-1}}">&lt; Prev</a>&nbsp;</span><a href="./#/block/{{blockNumber}}">{{number}}</a><span ng-if="notLastBlock">&nbsp;<a class="btn btn-primary btn-sm" href="./#/block/{{blockNumber+1}}">Next &gt;</a></span></td>
+                <td><a class="btn btn-primary btn-sm" ng-class="{disabled:firstBlock}" href="./#/block/{{blockNumber-1}}">&lt; Prev</a>&nbsp;<a href="./#/block/{{blockNumber}}">{{number}}</a>&nbsp;<a class="btn btn-primary btn-sm" ng-class="{disabled: lastBlock}" href="./#/block/{{blockNumber+1}}">Next &gt;</a></td>
             </tr>
             <tr>
                 <td>Received Time</td>
